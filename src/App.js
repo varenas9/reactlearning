@@ -1,28 +1,38 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Input from './components/Input';
+import Button from './components/Button';
+import List from './components/List';
 
 class App extends Component {
+  state = {
+    input:'',
+    todo: []
+  }
+
+  onInputChange = (evt) => {
+    this.setState({
+      input: evt.target.value
+    });
+  }
+  onButtonClick = () => {
+    const myList = this.state.todo;
+    myList.push(this.state.input)
+    this.setState({
+      todo: myList,
+      input: ''
+    });
+  }
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <>
+        <Input value = {this.state.input} onChange={this.onInputChange} />
+        <Button clickMe={this.onButtonClick}>Add</Button>
+        <List items={this.state.todo} />
+      </>
     );
   }
 }
 
 export default App;
+
+
