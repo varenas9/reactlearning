@@ -13,15 +13,18 @@ const styles = (theme) => ({
   }
 });
 
-function List ({classes}){
+function List ({classes, items}){
   return (
     <MuiList dense className={classes.root}>
-      <ListItem button>
-        <ListItemText primary="Laundry"/>
-        <ListItemSecondaryAction>
-          <Checkbox/>
-        </ListItemSecondaryAction>
-      </ListItem>
+      {items.map((item,idx)=> (
+        <ListItem key={idx} button>
+          <ListItemText primary= {item}/>
+          <ListItemSecondaryAction>
+            <Checkbox/>
+          </ListItemSecondaryAction>
+        </ListItem>
+      ))}
+      
     
     </MuiList>
   )

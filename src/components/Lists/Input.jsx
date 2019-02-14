@@ -12,12 +12,15 @@ const styles = (theme) => ({
   }
 });
 
-function Input({classes}){
+function Input({value,classes,onKeyPress,onChange}){
   return (
     <div className={classes.container}>
       <MuiInput
         placeholder="Add new to do"
+        value={value}
         className={classes.input}
+        onKeyPress={onKeyPress}
+        onChange={onChange}
         inputProps={{
           'aria-label':'Input to do'
         }}
