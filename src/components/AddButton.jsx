@@ -11,13 +11,17 @@ const styles = (theme) => ({
   }
 });
 
-function AddButton({classes}){
+function AddButton({classes, onClick}){
   return (
-    <Fab className={classes.fab} color="primary">
+    <Fab
+      className={classes.fab}
+      color="primary"
+      onClick={onClick}>
       <AddIcon/>
     </Fab>
   )
 }
+
 
 export default withStyles(styles)(AddButton);
 

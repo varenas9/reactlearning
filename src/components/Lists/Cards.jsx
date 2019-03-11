@@ -17,7 +17,7 @@ const styles = theme => ({
   }
 })
 
-function Cards({classes, children}){
+function Cards({classes, listName, children}){
   return(
     <Card className={classes.card}>
       <CardHeader
@@ -26,7 +26,7 @@ function Cards({classes, children}){
             <MoreVertIcon/>
           </IconButton>
         }
-        title="Office"
+        title= {listName}
       />
       <CardContent>
         {children}

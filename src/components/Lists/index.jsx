@@ -11,9 +11,9 @@ const styles = theme => ({
   }
 })
 
-function Lists({classes}){
+function Lists({classes,toDoLists}){
   const [toDoInput, setToDoInput]= useState('');
-  const [toDoList, setToDoList]= useState([])
+  const [toDoList, setToDoList]= useState([]);
 
   function alCambiar(evt){
     setToDoInput(evt.target.value);
@@ -28,18 +28,14 @@ function Lists({classes}){
   return (
     <div className = {classes.root}>
       <Grid container spacing = {24}>
-        <Grid item xs={12} md={6}>
-          <Cards>
-            <Input value={toDoInput} onChange={alCambiar} onKeyPress={onKeyPress}/>
-            <List items={toDoList}/>
-          </Cards>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <Cards>
-            <Input/>
-            <List items={toDoList}/>
-          </Cards>
-        </Grid>
+        {toDoLists.map((list,idx) =>(
+          <Grid key={idx} item xs={12} md={6}>
+            <Cards listName = {list.name} >
+              <Input value={toDoInput} onChange={alCambiar} onKeyPress={onKeyPress}/>
+              <List items={toDoList}/>
+            </Cards>
+          </Grid>
+        ))};
       </Grid>
     
     
