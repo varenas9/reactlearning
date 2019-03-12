@@ -1,37 +1,39 @@
-import React, { Component } from 'react';
-import Input from './components/Input';
-import Button from './components/Button';
-import List from './components/List';
+import React, { useState } from 'react';
+import TopBar from './components/TopBar';
+import AddButton from './components/AddButton';
+import Lists from './components/Lists';
+import Dialogue from './components/Dialogue';
 
-class App extends Component {
-  state = {
-    input:'',
-    todo: []
+
+function App(){
+  const [isDialogDisplayed, setDialogDisplay]= useState(false);
+  const [toDoLists, setToDoLists]=useState([]);
+  const onAddButtonClick = () => {
+    setDialogDisplay(true);
   }
 
-  onInputChange = (evt) => {
-    this.setState({
-      input: evt.target.value
-    });
+  const onDialogClose = () => {
+    setDialogDisplay(false);
+  };
+
+  function addNewList(listName){
+    setToDoLists([...toDoLists,{name:listName, toDos:[]}])
   }
-  onButtonClick = () => {
-    const myList = this.state.todo;
-    myList.push(this.state.input)
-    this.setState({
-      todo: myList,
-      input: ''
-    });
-  }
-  render() {
-    return (
-      <>
-        <Input value = {this.state.input} onChange={this.onInputChange} />
-        <Button clickMe={this.onButtonClick}>Add</Button>
-        <List items={this.state.todo} />
-      </>
-    );
-  }
+
+  return (
+    <>
+      <TopBar/>
+      <Lists toDoLists={toDoLists} setToDoLists={setToDoLists}/>
+      <AddButton onClick={onAddButtonClick} />
+      <Dialogue
+        isDialogDisplayed={isDialogDisplayed}
+        onDialogClose={onDialogClose}
+        onAddClick = {addNewList}/>
+    </>
+  );
 }
+
+
 
 export default App;
 
