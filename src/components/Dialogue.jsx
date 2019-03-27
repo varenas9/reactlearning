@@ -13,7 +13,18 @@ function Dialogue({isDialogDisplayed, onDialogClose, onAddClick}){
     setInputName(evt.target.value);
   }
   function onAddButtonClick(){
-    onAddClick(inputName)
+    onAddClick(inputName);
+    setInputName('');
+    onDialogClose();
+  }
+  function onKeyPress(evt){
+    if (evt.charCode===13 && inputName !== ''){
+      onAddButtonClick();
+    }
+  }
+  function onCancel(){
+    setInputName('');
+    onDialogClose();
   }
   return(
     <Dialog
@@ -22,10 +33,15 @@ function Dialogue({isDialogDisplayed, onDialogClose, onAddClick}){
     >
       <DialogTitle id = "form-dialog-title">New List</DialogTitle>
       <DialogContent>
-        <Input value={inputName} onChange={onInputChange}/> 
+        <Input
+          value={inputName}
+          onChange={onInputChange} 
+          onKeyPress={onKeyPress}
+          focus
+        /> 
       </DialogContent>
       <DialogActions>
-        <Button onClick={onDialogClose} color = "primary">
+        <Button onClick={onCancel} color = "primary">
           Cancel
         </Button>
         <Button onClick={onAddButtonClick} color="primary">

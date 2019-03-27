@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TopBar from './components/TopBar';
 import AddButton from './components/AddButton';
 import Lists from './components/Lists';
 import Dialogue from './components/Dialogue';
+import ToDo from './models/ToDo';
 
 
 function App(){
@@ -17,13 +18,22 @@ function App(){
   };
 
   function addNewList(listName){
-    setToDoLists([...toDoLists,{name:listName, toDos:[]}])
+    ToDo.createList(listName)
   }
 
+  useEffect(()=>{
+    const unsubscribeTodoSubscription = ToDo.subscribe((value) => {
+      setToDoLists(value);
+    });
+    return () => {
+      unsubscribeTodoSubscription();
+    };
+
+  }, [true]);
   return (
     <>
       <TopBar/>
-      <Lists toDoLists={toDoLists} setToDoLists={setToDoLists}/>
+      <Lists toDoLists={toDoLists}/>
       <AddButton onClick={onAddButtonClick} />
       <Dialogue
         isDialogDisplayed={isDialogDisplayed}

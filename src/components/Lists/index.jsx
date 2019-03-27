@@ -11,31 +11,39 @@ const styles = theme => ({
   }
 })
 
-function Lists({classes,toDoLists}){
-  const [toDoInput, setToDoInput]= useState('');
-  const [toDoList, setToDoList]= useState([]);
+function Lists({classes, toDoLists}){
+  const [toDoInput, setToDoInput]= useState([]);
 
-  function alCambiar(evt){
-    setToDoInput(evt.target.value);
+  function alCambiar(evt, idx){
+    toDoInput[idx] = evt.target.value;
+    setToDoInput([...toDoInput]);
   } 
 
-  function onKeyPress(evt){
-    if (evt.charCode===13 && toDoInput !== ''){
-      setToDoList([...toDoList, toDoInput]);
-      setToDoInput('');
+  function onKeyPress(evt, idx){
+    if (evt.charCode===13 && toDoInput[idx] !== ''){
+      toDoLists[idx].addItem(toDoInput[idx]);
+      // toDoLists[idx].toDos = [...toDoLists[idx].toDos, toDoInput[idx]];
+      // setToDoLists([...toDoLists]);
+      toDoInput[idx] = '';
+      setToDoInput([...toDoInput])
     }
   }
+
   return (
     <div className = {classes.root}>
       <Grid container spacing = {24}>
         {toDoLists.map((list,idx) =>(
           <Grid key={idx} item xs={12} md={6}>
             <Cards listName = {list.name} >
-              <Input value={toDoInput} onChange={alCambiar} onKeyPress={onKeyPress}/>
-              <List items={toDoList}/>
+              <Input
+                value={toDoInput[idx]}
+                onChange={(evt) => alCambiar(evt, idx)}
+                onKeyPress={(evt) => onKeyPress(evt, idx)}
+              />
+              <List items={list.toDos}/>
             </Cards>
           </Grid>
-        ))};
+        ))}
       </Grid>
     
     

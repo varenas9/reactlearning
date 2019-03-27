@@ -12,7 +12,7 @@ const styles = (theme) => ({
   }
 });
 
-function Input({value,classes,onKeyPress,onChange}){
+function Input({value,classes,onKeyPress,onChange,focus}){
   return (
     <div className={classes.container}>
       <MuiInput
@@ -21,6 +21,7 @@ function Input({value,classes,onKeyPress,onChange}){
         className={classes.input}
         onKeyPress={onKeyPress}
         onChange={onChange}
+        autoFocus={focus}
         inputProps={{
           'aria-label':'Input to do'
         }}

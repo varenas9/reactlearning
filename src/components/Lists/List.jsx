@@ -18,9 +18,9 @@ function List ({classes, items}){
     <MuiList dense className={classes.root}>
       {items.map((item,idx)=> (
         <ListItem key={idx} button>
-          <ListItemText primary= {item}/>
+          <ListItemText primary= {item.value}/>
           <ListItemSecondaryAction>
-            <Checkbox/>
+            <Checkbox checked = {item.status}/>
           </ListItemSecondaryAction>
         </ListItem>
       ))}
