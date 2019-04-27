@@ -5,6 +5,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Checkbox from '@material-ui/core/Checkbox';
 import { withStyles } from '@material-ui/core/styles';
+import Delete from '@material-ui/icons/DeleteOutlined';
+import ItemValue from "./ListItem";
 
 const styles = (theme) => ({
   root: {
@@ -13,14 +15,18 @@ const styles = (theme) => ({
   }
 });
 
-function List ({classes, items}){
+
+function List ({classes, items, list}){
   return (
     <MuiList dense className={classes.root}>
       {items.map((item,idx)=> (
-        <ListItem key={idx} button>
-          <ListItemText primary= {item.value}/>
+        <ListItem key={idx} button onClick={() => list.changeItem(idx)}>
+          <Delete onClick={(evt) => {
+            evt.stopPropagation();
+            list.deleteItem(idx)}}/>
+          <ListItemText primary={<ItemValue idx={idx} list={list} itemValue={item.value}/>}/>
           <ListItemSecondaryAction>
-            <Checkbox checked = {item.status}/>
+            <Checkbox onClick={() => list.changeItem(idx)} checked = {item.status}/>
           </ListItemSecondaryAction>
         </ListItem>
       ))}

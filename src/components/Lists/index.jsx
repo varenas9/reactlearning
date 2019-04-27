@@ -34,13 +34,13 @@ function Lists({classes, toDoLists}){
       <Grid container spacing = {24}>
         {toDoLists.map((list,idx) =>(
           <Grid key={idx} item xs={12} md={6}>
-            <Cards listName = {list.name} >
+            <Cards listName = {list.name} list={list}>
               <Input
                 value={toDoInput[idx]}
                 onChange={(evt) => alCambiar(evt, idx)}
                 onKeyPress={(evt) => onKeyPress(evt, idx)}
               />
-              <List items={list.toDos}/>
+              <List list={list} items={list.toDos}/>
             </Cards>
           </Grid>
         ))}

@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Input test should render Input 1`] = `
+<input
+  type="text"
+/>
+`;
+
+exports[`Input test should render a value if value is given 1`] = `
+<input
+  type="text"
+  value="Chau"
+/>
+`;

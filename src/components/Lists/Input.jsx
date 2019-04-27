@@ -12,11 +12,11 @@ const styles = (theme) => ({
   }
 });
 
-function Input({value,classes,onKeyPress,onChange,focus}){
+function Input({value,classes,onKeyPress,onChange,focus, placeholder}){
   return (
     <div className={classes.container}>
       <MuiInput
-        placeholder="Add new to do"
+        placeholder={placeholder || 'Add new to do'}
         value={value}
         className={classes.input}
         onKeyPress={onKeyPress}

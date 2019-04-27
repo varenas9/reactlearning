@@ -6,6 +6,7 @@ class ToDo {
     this.name = list.name;
     this.toDos = list.toDos || [];
     this._ref = db.ref(`lists/${id}`);
+    this.favorite = list.favorite || false;
   }
 
   addItem(value) {
@@ -15,10 +16,67 @@ class ToDo {
     })
     this._ref.set({
       name: this.name,
-      toDos: [...this.toDos]
+      toDos: [...this.toDos],
+      favorite: this.favorite
     })
   }
-  
+
+  changeItem(idx) {
+    this.toDos[idx].status = !this.toDos[idx].status;
+    this._ref.set({
+      name: this.name,
+      toDos: [...this.toDos],
+      favorite:this.favorite
+    })
+  }
+  deleteItem(idx) {
+    this.toDos.splice(idx, 1);
+
+    this._ref.set({
+      name: this.name,
+      toDos: [...this.toDos],
+      favorite: this.favorite
+    })
+  }
+  removeList(){
+    this._ref.remove()
+  }
+  editItem(idx, toDo){
+    this.toDos[idx].value= toDo;
+    this._ref.set({
+      name: this.name,
+      toDos: [...this.toDos],
+      favorite:this.favorite
+    })
+  }
+  emptyList(){
+    this._ref.set({
+      name:this.name,
+      toDos: []
+    })
+  }
+  cloneList(){
+    const id = uuid();
+    db.ref(`lists/${id}`).set({
+      name:this.name,
+      toDos:this.toDos,
+      favorite: this.favorite
+    })
+  }
+  favoriteList(){
+    this._ref.set({
+      name: this.name,
+      toDos: this.toDos,
+      favorite: !this.favorite
+    })
+  }
+  changeTitle(title){
+    this._ref.set({
+      name: title,
+      toDos: this.toDos,
+      favorite: this.favorite
+    });
+  }
   static createList(name){
     const id = uuid();
     db.ref(`lists/${id}`).set({

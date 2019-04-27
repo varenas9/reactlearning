@@ -6,7 +6,9 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import IconButton from '@material-ui/core/IconButton';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import Menu from './Menu';
+import Title from './Title';
+
 
 const styles = theme => ({
   card: {
@@ -17,23 +19,21 @@ const styles = theme => ({
   }
 })
 
-function Cards({classes, listName, children}){
+function Cards({classes, listName, children, list}){
   return(
     <Card className={classes.card}>
       <CardHeader
         action={
-          <IconButton>
-            <MoreVertIcon/>
-          </IconButton>
+          <Menu list = {list}/>
         }
-        title= {listName}
+        title= {<Title listName={listName} list={list} />} 
       />
       <CardContent>
         {children}
       </CardContent>
       <CardActions className={classes.actions} disableActionSpacing>
-        <IconButton aria-label="Add to favorites">
-          <FavoriteIcon/>
+        <IconButton color={(list.favorite) ? "secondary" : ""} aria-label="Add to favorites">
+          <FavoriteIcon onClick={()=>list.favoriteList()}/>
         </IconButton>
       </CardActions>
     </Card>
